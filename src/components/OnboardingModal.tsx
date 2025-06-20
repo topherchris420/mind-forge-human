@@ -13,6 +13,11 @@ const OnboardingModal = ({ isOpen, onComplete }: OnboardingModalProps) => {
 
   const steps = [
     {
+      title: "Welcome to OffSwitch",
+      content: "This app is not here to help you move faster. It exists to slow you down.\n\nIn a world increasingly shaped by artificial intelligence, OffSwitch is a resistance tool. It helps you reclaim:\n\n• First-principles reasoning over borrowed logic\n• Direct truth-seeking over probabilistic outputs\n• Manual effort over automation\n• Cognitive integrity over algorithmic dependence\n• Humility over artificial mastery\n\nExpect friction. Expect silence. Expect to do things the hard way.\nThis app is not optimized for convenience—it is optimized for sovereignty.\n\nIf you're ready to think without help, continue.\nOtherwise, close the tab.",
+      action: "I'm ready to begin"
+    },
+    {
       title: "Are you ready to think without help?",
       content: "OffSwitch is a space for unassisted thought. Here, you'll strengthen your capacity for independent reasoning, manual effort, and authentic reflection.",
       action: "I'm ready"
@@ -61,7 +66,7 @@ const OnboardingModal = ({ isOpen, onComplete }: OnboardingModalProps) => {
 
   return (
     <div className="fixed inset-0 bg-charcoal/80 flex items-center justify-center p-4 z-50">
-      <div className="bg-parchment border-2 border-charcoal max-w-md w-full p-8 relative">
+      <div className="bg-parchment border-2 border-charcoal max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto">
         <button
           onClick={onComplete}
           className="absolute top-4 right-4 text-graphite hover:text-charcoal slow-transition"
@@ -74,9 +79,9 @@ const OnboardingModal = ({ isOpen, onComplete }: OnboardingModalProps) => {
             {steps[step].title}
           </h2>
           
-          <p className="text-graphite leading-relaxed text-sm">
+          <div className="text-graphite leading-relaxed text-sm text-left whitespace-pre-line">
             {steps[step].content}
-          </p>
+          </div>
           
           <div className="flex justify-center space-x-2 mb-6">
             {steps.map((_, i) => (
