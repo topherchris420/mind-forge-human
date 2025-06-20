@@ -1,0 +1,167 @@
+
+/* Raw, unpolished form styling with mobile improvements */
+.raw-input {
+  @apply border-2 px-4 py-3 touch-target;
+  @apply focus:border-graphite focus:outline-none;
+  border-color: hsl(215 16% 25% / 0.3);
+  background-color: hsl(42 15% 85% / 0.5);
+  border-radius: 1px;
+  font-family: 'Courier New', monospace;
+  font-size: 16px; /* Prevents zoom on iOS */
+  -webkit-appearance: none;
+  transition: all 0.3s ease-out;
+  background-image: linear-gradient(90deg, transparent 79px, rgba(139, 69, 19, 0.1) 80px, transparent 81px);
+}
+
+.raw-input:focus {
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+  background-color: hsl(42 15% 88%);
+}
+
+/* Disable AI suggestions and autocomplete */
+.raw-input {
+  autocomplete: off;
+  autocorrect: off;
+  autocapitalize: off;
+  spellcheck: false;
+}
+
+.raw-button {
+  @apply border-2 border-charcoal bg-charcoal text-parchment px-6 py-3 touch-target;
+  @apply hover:bg-graphite slow-transition;
+  border-radius: 1px;
+  font-family: 'Georgia', serif;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.raw-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.6s ease-out;
+}
+
+.raw-button:hover::before {
+  left: 100%;
+}
+
+.raw-button:disabled {
+  @apply opacity-50 cursor-not-allowed;
+  @apply hover:bg-charcoal;
+}
+
+.raw-button:disabled::before {
+  display: none;
+}
+
+.section-header {
+  @apply text-2xl font-medium mb-6 text-charcoal;
+  font-family: 'Georgia', serif;
+  border-bottom: 2px solid hsl(var(--graphite-light));
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.section-header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: hsl(var(--earth-brown));
+  animation: underline-grow 2s ease-out forwards;
+}
+
+/* Enhanced touch targets for mobile */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Mobile grid improvements */
+@media (max-width: 768px) {
+  .section-header {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .raw-input, .raw-button {
+    padding: 1rem;
+    font-size: 18px;
+  }
+}
+
+/* Smooth state transitions for interactive elements */
+.dashboard-card {
+  @apply slow-transition;
+  transform: translateY(0);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.05), transparent);
+  transition: left 0.8s ease-out;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.dashboard-card:hover::before {
+  left: 100%;
+}
+
+/* Reflective feedback cues */
+.feedback-cue {
+  @apply text-sm italic text-earth-brown;
+  font-family: 'Georgia', serif;
+  border-left: 2px solid hsl(var(--earth-brown));
+  padding-left: 12px;
+  margin: 16px 0;
+  animation: feedback-pulse 3s ease-in-out infinite;
+}
+
+/* Subtle audio-visual feedback */
+.audio-feedback {
+  position: relative;
+}
+
+.audio-feedback::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, rgba(139, 69, 19, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: audio-ripple 0.6s ease-out;
+  pointer-events: none;
+}
+
+.raw-input:focus + .audio-feedback::after,
+.raw-button:active + .audio-feedback::after {
+  animation: audio-ripple 0.6s ease-out;
+}

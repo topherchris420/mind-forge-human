@@ -1,0 +1,83 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* OffSwitch - Analog-inspired, anti-optimization design system */
+
+@layer base {
+  :root {
+    /* Analog color palette - muted, paper-like tones */
+    --parchment: 46 21% 93%;
+    --parchment-dark: 42 15% 85%;
+    --graphite: 215 16% 25%;
+    --graphite-light: 215 10% 40%;
+    --charcoal: 220 13% 18%;
+    --ink: 222 84% 4.9%;
+    --faded-blue: 210 25% 65%;
+    --earth-brown: 25 20% 45%;
+    --warning-red: 0 45% 55%;
+    
+    --background: var(--parchment);
+    --foreground: var(--charcoal);
+    --card: var(--parchment);
+    --card-foreground: var(--charcoal);
+    --border: var(--graphite-light);
+    --input: var(--parchment-dark);
+    --primary: var(--charcoal);
+    --primary-foreground: var(--parchment);
+    --secondary: var(--faded-blue);
+    --secondary-foreground: var(--charcoal);
+    --muted: var(--parchment-dark);
+    --muted-foreground: var(--graphite);
+    --accent: var(--earth-brown);
+    --accent-foreground: var(--parchment);
+    --destructive: var(--warning-red);
+    --destructive-foreground: var(--parchment);
+    --ring: var(--graphite);
+    --radius: 2px; /* Minimal border radius for raw feel */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  /* Enhanced typography for better readability */
+  h1, h2, h3 {
+    font-family: 'Georgia', serif;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+  }
+
+  /* Mobile-first responsive typography */
+  @media (max-width: 768px) {
+    body {
+      font-size: 18px;
+      line-height: 1.7;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* Enhanced focus states for accessibility */
+  .raw-input:focus,
+  .raw-button:focus {
+    outline: 2px solid hsl(var(--charcoal));
+    outline-offset: 2px;
+  }
+}

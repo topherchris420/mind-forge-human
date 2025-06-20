@@ -1,0 +1,67 @@
+
+/* Custom colors for Tailwind */
+@layer utilities {
+  .text-parchment { color: hsl(var(--parchment)); }
+  .text-parchment-dark { color: hsl(var(--parchment-dark)); }
+  .text-graphite { color: hsl(var(--graphite)); }
+  .text-graphite-light { color: hsl(var(--graphite-light)); }
+  .text-charcoal { color: hsl(var(--charcoal)); }
+  .text-ink { color: hsl(var(--ink)); }
+  .text-faded-blue { color: hsl(var(--faded-blue)); }
+  .text-earth-brown { color: hsl(var(--earth-brown)); }
+  .text-warning-red { color: hsl(var(--warning-red)); }
+  
+  .bg-parchment { background-color: hsl(var(--parchment)); }
+  .bg-parchment-dark { background-color: hsl(var(--parchment-dark)); }
+  .bg-graphite { background-color: hsl(var(--graphite)); }
+  .bg-graphite-light { background-color: hsl(var(--graphite-light)); }
+  .bg-charcoal { background-color: hsl(var(--charcoal)); }
+  .bg-ink { background-color: hsl(var(--ink)); }
+  .bg-faded-blue { background-color: hsl(var(--faded-blue)); }
+  .bg-earth-brown { background-color: hsl(var(--earth-brown)); }
+  .bg-warning-red { background-color: hsl(var(--warning-red)); }
+  
+  .border-parchment { border-color: hsl(var(--parchment)); }
+  .border-parchment-dark { border-color: hsl(var(--parchment-dark)); }
+  .border-graphite { border-color: hsl(var(--graphite)); }
+  .border-graphite-light { border-color: hsl(var(--graphite-light)); }
+  .border-charcoal { border-color: hsl(var(--charcoal)); }
+  
+  /* Mobile-specific utilities */
+  .mobile-grid {
+    @apply grid-cols-1;
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-grid {
+      @apply grid-cols-2;
+    }
+  }
+  
+  /* Touch-friendly scrolling */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Analog bliss utilities */
+  .analog-glow {
+    box-shadow: 0 0 20px rgba(139, 69, 19, 0.1);
+  }
+
+  .paper-shadow {
+    box-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.1),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Grid utilities for pixel tasks */
+  .grid-cols-20 {
+    grid-template-columns: repeat(20, minmax(0, 1fr));
+  }
+
+  /* Enhanced blur utilities */
+  .blur-xs {
+    filter: blur(1px);
+  }
+}
