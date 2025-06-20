@@ -31,7 +31,7 @@ const AnalogInteractions = ({ children, soundType = 'pencil', onInteraction }: A
   return (
     <div className="analog-interaction-wrapper">
       {children}
-      <style jsx>{`
+      <style>{`
         .analog-sound-pencil::before {
           content: '';
           position: fixed;
