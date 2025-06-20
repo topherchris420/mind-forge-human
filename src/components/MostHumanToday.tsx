@@ -7,6 +7,7 @@ interface HumanEntry {
   type: 'thought' | 'drawing' | 'principle';
   timestamp: number;
   humanityScore: number;
+  imageUrl?: string;
 }
 
 const MostHumanToday = () => {
@@ -14,6 +15,7 @@ const MostHumanToday = () => {
   const [newEntry, setNewEntry] = useState('');
   const [entryType, setEntryType] = useState<'thought' | 'drawing' | 'principle'>('thought');
   const [hasContributedToday, setHasContributedToday] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
   useEffect(() => {
     loadTodaysEntries();
@@ -64,15 +66,29 @@ const MostHumanToday = () => {
     setHasContributedToday(!!contributed);
   };
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageUrl = e.target?.result as string;
+        setUploadedImage(imageUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const submitEntry = () => {
-    if (!newEntry.trim()) return;
+    if (entryType === 'drawing' && !uploadedImage && !newEntry.trim()) return;
+    if (entryType !== 'drawing' && !newEntry.trim()) return;
 
     const entry: HumanEntry = {
       id: Date.now().toString(),
       content: newEntry,
       type: entryType,
       timestamp: Date.now(),
-      humanityScore: 0
+      humanityScore: 0,
+      imageUrl: uploadedImage || undefined
     };
 
     const updatedEntries = [...entries, entry];
@@ -83,6 +99,7 @@ const MostHumanToday = () => {
     localStorage.setItem(`human-contributed-${today}`, 'true');
     
     setNewEntry('');
+    setUploadedImage(null);
     setHasContributedToday(true);
   };
 
@@ -135,7 +152,10 @@ const MostHumanToday = () => {
                     type="radio"
                     value={type}
                     checked={entryType === type}
-                    onChange={(e) => setEntryType(e.target.value as any)}
+                    onChange={(e) => {
+                      setEntryType(e.target.value as any);
+                      setUploadedImage(null);
+                    }}
                     className="mr-2"
                   />
                   <span className="text-sm capitalize">{type}</span>
@@ -143,17 +163,44 @@ const MostHumanToday = () => {
               ))}
             </div>
           </div>
+
+          {entryType === 'drawing' && (
+            <div className="mb-3">
+              <label className="block text-sm text-graphite mb-2">
+                Upload your drawing or artwork:
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="block w-full text-sm text-graphite file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-parchment-dark file:text-charcoal hover:file:bg-earth-brown hover:file:text-parchment"
+              />
+              {uploadedImage && (
+                <div className="mt-3">
+                  <img
+                    src={uploadedImage}
+                    alt="Uploaded drawing"
+                    className="max-w-xs max-h-40 object-contain border border-graphite-light"
+                  />
+                </div>
+              )}
+            </div>
+          )}
           
           <textarea
             value={newEntry}
             onChange={(e) => setNewEntry(e.target.value)}
             className="raw-input w-full h-20 resize-none mb-3"
-            placeholder="Share something unfiltered, unoptimized, authentically human..."
+            placeholder={
+              entryType === 'drawing' 
+                ? "Describe your drawing or the process of creating it..." 
+                : "Share something unfiltered, unoptimized, authentically human..."
+            }
           />
           
           <button
             onClick={submitEntry}
-            disabled={!newEntry.trim()}
+            disabled={entryType === 'drawing' ? (!uploadedImage && !newEntry.trim()) : !newEntry.trim()}
             className="raw-button text-sm disabled:opacity-50"
           >
             Contribute Anonymously
@@ -177,6 +224,16 @@ const MostHumanToday = () => {
                 ↑ {entry.humanityScore}
               </button>
             </div>
+
+            {entry.imageUrl && (
+              <div className="mb-3">
+                <img
+                  src={entry.imageUrl}
+                  alt="Shared drawing"
+                  className="max-w-sm max-h-48 object-contain border border-graphite-light"
+                />
+              </div>
+            )}
             
             <p className="text-charcoal leading-relaxed text-sm whitespace-pre-wrap">
               {entry.content}
