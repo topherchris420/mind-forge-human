@@ -123,6 +123,24 @@
     50% { transform: scale(1.02); opacity: 1; }
   }
 
+  /* Enhanced analog texture with paper grain */
+  .analog-texture {
+    position: relative;
+  }
+
+  .analog-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(139, 69, 19, 0.02) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(139, 69, 19, 0.02) 1px, transparent 1px),
+      radial-gradient(circle at 50% 10%, rgba(139, 69, 19, 0.01) 2px, transparent 2px);
+    background-size: 20px 20px, 25px 25px, 15px 15px;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+
   /* Enhanced touch targets for mobile */
   .touch-target {
     min-height: 44px;
@@ -140,11 +158,13 @@
     font-size: 16px; /* Prevents zoom on iOS */
     -webkit-appearance: none;
     transition: all 0.3s ease-out;
+    background-image: linear-gradient(90deg, transparent 79px, rgba(139, 69, 19, 0.1) 80px, transparent 81px);
   }
 
   .raw-input:focus {
     box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
     transform: translateY(-1px);
+    background-color: hsl(42 15% 88%);
   }
 
   /* Disable AI suggestions and autocomplete */
@@ -165,6 +185,7 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
   }
 
   .raw-button::before {
@@ -270,26 +291,56 @@
 
   .dashboard-card:hover {
     transform: translateY(-2px);
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.1),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.3);
   }
 
   .dashboard-card:hover::before {
     left: 100%;
   }
 
-  /* Ambient texture overlay */
-  .analog-texture {
+  /* Paper grain texture overlay */
+  .paper-grain {
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(139, 69, 19, 0.02) 1px, transparent 1px),
+      radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.02) 1px, transparent 1px),
+      radial-gradient(circle at 40% 40%, rgba(139, 69, 19, 0.01) 2px, transparent 2px);
+    background-size: 15px 15px, 20px 20px, 10px 10px;
+  }
+
+  /* Subtle audio-visual feedback */
+  .audio-feedback {
     position: relative;
   }
 
-  .analog-texture::before {
+  .audio-feedback::after {
     content: '';
     position: absolute;
-    inset: 0;
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(139, 69, 19, 0.02) 1px, transparent 1px),
-      radial-gradient(circle at 75% 75%, rgba(139, 69, 19, 0.02) 1px, transparent 1px);
-    background-size: 20px 20px;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, rgba(139, 69, 19, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: audio-ripple 0.6s ease-out;
     pointer-events: none;
+  }
+
+  .raw-input:focus + .audio-feedback::after,
+  .raw-button:active + .audio-feedback::after {
+    animation: audio-ripple 0.6s ease-out;
+  }
+
+  @keyframes audio-ripple {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(10); opacity: 0; }
+  }
+
+  /* Enhanced blur utilities */
+  .blur-xs {
+    filter: blur(1px);
   }
 }
 
@@ -347,5 +398,19 @@
     box-shadow: 
       2px 2px 4px rgba(0, 0, 0, 0.1),
       inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Enhanced paper texture with grain */
+  .paper-texture {
+    background-image: 
+      linear-gradient(90deg, transparent 79px, rgba(139, 69, 19, 0.05) 80px, transparent 81px),
+      radial-gradient(circle at 20% 20%, rgba(139, 69, 19, 0.01) 1px, transparent 1px),
+      radial-gradient(circle at 80% 80%, rgba(139, 69, 19, 0.01) 1px, transparent 1px);
+    background-size: 80px 100%, 15px 15px, 20px 20px;
+  }
+
+  /* Grid utilities for pixel tasks */
+  .grid-cols-20 {
+    grid-template-columns: repeat(20, minmax(0, 1fr));
   }
 }

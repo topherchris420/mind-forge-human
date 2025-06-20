@@ -8,6 +8,9 @@ import MostHumanToday from './MostHumanToday';
 import CognitiveCandy from './CognitiveCandy';
 import DashboardGrid from './DashboardGrid';
 import WeeklyReflection from './WeeklyReflection';
+import CognitiveArchaeology from './CognitiveArchaeology';
+import ResistanceJournal from './ResistanceJournal';
+import DigitalDetoxTracker from './DigitalDetoxTracker';
 
 interface DashboardProps {
   sessionData: string;
@@ -34,6 +37,15 @@ const Dashboard = ({ sessionData, getModuleStreak, getLastActivity, setActiveMod
 
       {/* Daily Resistance - Featured prominently */}
       <DailyResistance />
+
+      {/* New Cognitive Archaeology Feature */}
+      <CognitiveArchaeology />
+
+      {/* Digital Detox Tracker */}
+      <DigitalDetoxTracker />
+
+      {/* Resistance Journal */}
+      <ResistanceJournal />
 
       {/* Cognitive Weight Assessment */}
       {sessionData && <CognitiveWeight sessionData={sessionData} />}
