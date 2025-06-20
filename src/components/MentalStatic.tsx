@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 const staticPrompts = [
@@ -58,7 +57,7 @@ const MentalStatic = () => {
           onClick={activateStatic}
           className="w-full text-sm text-charcoal hover:text-earth-brown slow-transition py-2"
         >
-          Generate Mental Static
+          ∿ Scramble Your Patterns ∿
         </button>
       </div>
     );
