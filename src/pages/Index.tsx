@@ -7,54 +7,25 @@ import MentalStatic from '../components/MentalStatic';
 import BackgroundEffects from '../components/BackgroundEffects';
 import Dashboard from '../components/Dashboard';
 import ModuleView from '../components/ModuleView';
-import ThresholdRitual from '../components/ThresholdRitual';
-import MysteryUnlocks from '../components/MysteryUnlocks';
-import SymbolicEchoes from '../components/SymbolicEchoes';
-import ReverseNotifications from '../components/ReverseNotifications';
-import InnerVocabulary from '../components/InnerVocabulary';
-import SovereigntyModulator from '../components/SovereigntyScore';
 
 const Index = () => {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [activeModule, setActiveModule] = useState<string | null>(null);
   const [sessionData, setSessionData] = useState<string>('');
-  const [hasEnteredThreshold, setHasEnteredThreshold] = useState(false);
 
   useEffect(() => {
-    // Check if threshold has been crossed today
-    const today = new Date().toDateString();
-    const lastThreshold = localStorage.getItem('offswitch-threshold-date');
-    
-    if (lastThreshold !== today) {
-      setHasEnteredThreshold(false);
-    } else {
-      setHasEnteredThreshold(true);
-      
-      // Check onboarding after threshold
-      const hasSeenOnboarding = localStorage.getItem('offswitch-onboarding-complete');
-      if (!hasSeenOnboarding) {
-        setShowOnboarding(true);
-      }
-    }
-  }, []);
-
-  const handleThresholdEnter = () => {
-    const today = new Date().toDateString();
-    localStorage.setItem('offswitch-threshold-date', today);
-    setHasEnteredThreshold(true);
-    
-    // Check onboarding after entering
     const hasSeenOnboarding = localStorage.getItem('offswitch-onboarding-complete');
     if (!hasSeenOnboarding) {
       setShowOnboarding(true);
     }
-  };
+  }, []);
 
   const handleOnboardingComplete = () => {
     setShowOnboarding(false);
   };
 
   const getModuleStreak = (moduleKey: string) => {
+    // Simple streak calculation - count consecutive days with entries
     let streak = 0;
     const today = new Date();
     
@@ -74,6 +45,7 @@ const Index = () => {
   };
 
   const getLastActivity = (moduleKey: string) => {
+    // Find most recent activity
     for (let i = 0; i < 7; i++) {
       const checkDate = new Date();
       checkDate.setDate(checkDate.getDate() - i);
@@ -85,11 +57,6 @@ const Index = () => {
     }
     return 'Never';
   };
-
-  // Show threshold ritual if not entered today
-  if (!hasEnteredThreshold) {
-    return <ThresholdRitual onEnter={handleThresholdEnter} />;
-  }
 
   if (activeModule === 'memory-archive') {
     return (
@@ -105,6 +72,7 @@ const Index = () => {
           <MemoryArchive />
         </main>
         
+        {/* Ambient background for archival experience */}
         <div className="fixed inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-earth-brown/5 to-transparent"></div>
         </div>
@@ -114,23 +82,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-parchment relative overflow-hidden">
-      {/* Invisible sovereignty modulator */}
-      <SovereigntyModulator />
-      
-      {/* Background effects with sovereignty-influenced textures */}
       <BackgroundEffects />
-      
-      {/* Symbolic echoes floating over everything */}
-      <SymbolicEchoes />
-      
-      {/* Reverse notifications for missed interactions */}
-      <ReverseNotifications />
-      
-      {/* Inner vocabulary lexicon */}
-      <InnerVocabulary />
-      
-      {/* Mystery unlocks system */}
-      <MysteryUnlocks />
       
       <Header />
       
@@ -139,9 +91,11 @@ const Index = () => {
         onComplete={handleOnboardingComplete} 
       />
       
+      {/* Mental Static - Can appear randomly */}
       <MentalStatic />
       
       <main className="max-w-4xl mx-auto px-4 py-8 relative">
+        {/* Active Module Display */}
         {activeModule && activeModule !== 'memory-archive' ? (
           <ModuleView activeModule={activeModule} setActiveModule={setActiveModule} />
         ) : (

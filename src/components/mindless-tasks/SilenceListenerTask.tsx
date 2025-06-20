@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { TaskComponentProps } from './mindlessTaskTypes';
-import { recordFriction } from '../SovereigntyScore';
 
 const SilenceListenerTask = ({ onComplete }: TaskComponentProps) => {
   const [timeLeft, setTimeLeft] = useState(20);
@@ -10,13 +9,6 @@ const SilenceListenerTask = ({ onComplete }: TaskComponentProps) => {
     const interval = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
-          // Record completion for mystery unlocks and sovereignty
-          const completions = parseInt(localStorage.getItem('offswitch-silence-completions') || '0');
-          localStorage.setItem('offswitch-silence-completions', (completions + 1).toString());
-          
-          // Record friction time for sovereignty score
-          recordFriction(20);
-          
           onComplete();
           return 0;
         }

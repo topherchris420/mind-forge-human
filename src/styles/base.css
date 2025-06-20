@@ -36,11 +36,6 @@
     --destructive-foreground: var(--parchment);
     --ring: var(--graphite);
     --radius: 2px; /* Minimal border radius for raw feel */
-    
-    /* Sovereignty-influenced variables */
-    --sovereignty-hue-shift: 0deg;
-    --sovereignty-saturation: 0%;
-    --sovereignty-texture-opacity: 0.02;
   }
 }
 
@@ -54,12 +49,6 @@
     font-family: 'Georgia', 'Times New Roman', serif;
     line-height: 1.6;
     font-size: 16px;
-    /* Subtle sovereignty-influenced background */
-    background-image: 
-      radial-gradient(circle at 25% 25%, 
-        hsl(calc(25 + var(--sovereignty-hue-shift)) calc(20% + var(--sovereignty-saturation)) 45% / var(--sovereignty-texture-opacity)) 1px, 
-        transparent 1px);
-    background-size: 20px 20px;
   }
 
   /* Enhanced typography for better readability */
@@ -91,10 +80,4 @@
     outline: 2px solid hsl(var(--charcoal));
     outline-offset: 2px;
   }
-}
-
-/* Sovereignty-influenced glow for high-score users */
-.sovereignty-glow {
-  box-shadow: 0 0 calc(10px + var(--sovereignty-texture-opacity) * 500px) 
-              hsl(calc(25 + var(--sovereignty-hue-shift)) calc(20% + var(--sovereignty-saturation)) 45% / 0.3);
 }
