@@ -48,6 +48,30 @@
     @apply bg-background text-foreground;
     font-family: 'Georgia', 'Times New Roman', serif;
     line-height: 1.6;
+    font-size: 16px;
+  }
+
+  /* Enhanced typography for better readability */
+  h1, h2, h3 {
+    font-family: 'Georgia', serif;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+  }
+
+  /* Mobile-first responsive typography */
+  @media (max-width: 768px) {
+    body {
+      font-size: 18px;
+      line-height: 1.7;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
   }
 
   /* Intentionally slow, deliberate transitions */
@@ -55,29 +79,91 @@
     transition: all 0.4s ease-out;
   }
 
-  /* Raw, unpolished form styling */
+  /* Enhanced touch targets for mobile */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Raw, unpolished form styling with mobile improvements */
   .raw-input {
-    @apply border-2 px-3 py-2;
+    @apply border-2 px-4 py-3 touch-target;
     @apply focus:border-graphite focus:outline-none;
     border-color: hsl(215 16% 25% / 0.3);
     background-color: hsl(42 15% 85% / 0.5);
     border-radius: 1px;
     font-family: 'Courier New', monospace;
+    font-size: 16px; /* Prevents zoom on iOS */
+    -webkit-appearance: none;
+  }
+
+  /* Disable AI suggestions and autocomplete */
+  .raw-input {
+    autocomplete: off;
+    autocorrect: off;
+    autocapitalize: off;
+    spellcheck: false;
   }
 
   .raw-button {
-    @apply border-2 border-charcoal bg-charcoal text-parchment px-4 py-2;
+    @apply border-2 border-charcoal bg-charcoal text-parchment px-6 py-3 touch-target;
     @apply hover:bg-graphite slow-transition;
     border-radius: 1px;
     font-family: 'Georgia', serif;
     font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .raw-button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+    @apply hover:bg-charcoal;
   }
 
   .section-header {
-    @apply text-2xl font-bold mb-6 text-charcoal;
+    @apply text-2xl font-medium mb-6 text-charcoal;
     font-family: 'Georgia', serif;
     border-bottom: 2px solid hsl(var(--graphite-light));
     padding-bottom: 8px;
+  }
+
+  /* Mobile grid improvements */
+  @media (max-width: 768px) {
+    .section-header {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .raw-input, .raw-button {
+      padding: 1rem;
+      font-size: 18px;
+    }
+  }
+
+  /* Reflective feedback cues */
+  .feedback-cue {
+    @apply text-sm italic text-earth-brown;
+    font-family: 'Georgia', serif;
+    border-left: 2px solid hsl(var(--earth-brown));
+    padding-left: 12px;
+    margin: 16px 0;
+  }
+
+  /* Enhanced focus states for accessibility */
+  .raw-input:focus,
+  .raw-button:focus {
+    outline: 2px solid hsl(var(--charcoal));
+    outline-offset: 2px;
+  }
+
+  /* Smooth state transitions for interactive elements */
+  .dashboard-card {
+    @apply slow-transition;
+    transform: translateY(0);
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-2px);
   }
 }
 
@@ -108,4 +194,21 @@
   .border-graphite { border-color: hsl(var(--graphite)); }
   .border-graphite-light { border-color: hsl(var(--graphite-light)); }
   .border-charcoal { border-color: hsl(var(--charcoal)); }
+  
+  /* Mobile-specific utilities */
+  .mobile-grid {
+    @apply grid-cols-1;
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-grid {
+      @apply grid-cols-2;
+    }
+  }
+  
+  /* Touch-friendly scrolling */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
 }
