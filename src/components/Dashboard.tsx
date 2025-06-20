@@ -13,11 +13,10 @@ interface DashboardProps {
   sessionData: string;
   getModuleStreak: (moduleKey: string) => number;
   getLastActivity: (moduleKey: string) => string;
-  isModuleLocked: (moduleKey: string) => boolean;
   setActiveModule: (module: string) => void;
 }
 
-const Dashboard = ({ sessionData, getModuleStreak, getLastActivity, isModuleLocked, setActiveModule }: DashboardProps) => {
+const Dashboard = ({ sessionData, getModuleStreak, getLastActivity, setActiveModule }: DashboardProps) => {
   return (
     <>
       {/* Temporal Dislocation - Shows historical content out of sequence */}
@@ -52,7 +51,6 @@ const Dashboard = ({ sessionData, getModuleStreak, getLastActivity, isModuleLock
       <DashboardGrid
         getModuleStreak={getModuleStreak}
         getLastActivity={getLastActivity}
-        isModuleLocked={isModuleLocked}
         setActiveModule={setActiveModule}
       />
 

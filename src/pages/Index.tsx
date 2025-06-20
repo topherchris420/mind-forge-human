@@ -58,11 +58,6 @@ const Index = () => {
     return 'Never';
   };
 
-  const isModuleLocked = (moduleKey: string) => {
-    const unlockedModules = JSON.parse(localStorage.getItem('unlocked-modules') || '[]');
-    return !unlockedModules.includes(moduleKey);
-  };
-
   if (activeModule === 'memory-archive') {
     return (
       <div className="min-h-screen bg-parchment">
@@ -108,7 +103,6 @@ const Index = () => {
             sessionData={sessionData}
             getModuleStreak={getModuleStreak}
             getLastActivity={getLastActivity}
-            isModuleLocked={isModuleLocked}
             setActiveModule={setActiveModule}
           />
         )}
