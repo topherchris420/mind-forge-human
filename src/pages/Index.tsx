@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import OnboardingModal from '../components/OnboardingModal';
@@ -12,10 +13,15 @@ import DailyResistance from '../components/DailyResistance';
 import CognitiveCandy from '../components/CognitiveCandy';
 import EgoFurnace from '../components/EgoFurnace';
 import MostHumanToday from '../components/MostHumanToday';
+import TemporalDislocator from '../components/TemporalDislocation';
+import MentalStatic from '../components/MentalStatic';
+import CognitiveWeight from '../components/CognitiveWeight';
+import MindlessTaskUnlocker from '../components/MindlessTaskUnlocker';
 
 const Index = () => {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [activeModule, setActiveModule] = useState<string | null>(null);
+  const [sessionData, setSessionData] = useState<string>('');
 
   useEffect(() => {
     const hasSeenOnboarding = localStorage.getItem('offswitch-onboarding-complete');
@@ -62,6 +68,11 @@ const Index = () => {
     return 'Never';
   };
 
+  const isModuleLocked = (moduleKey: string) => {
+    const unlockedModules = JSON.parse(localStorage.getItem('unlocked-modules') || '[]');
+    return !unlockedModules.includes(moduleKey);
+  };
+
   if (activeModule === 'memory-archive') {
     return (
       <div className="min-h-screen bg-parchment">
@@ -98,7 +109,13 @@ const Index = () => {
         onComplete={handleOnboardingComplete} 
       />
       
+      {/* Mental Static - Can appear randomly */}
+      <MentalStatic />
+      
       <main className="max-w-4xl mx-auto px-4 py-8 relative">
+        {/* Temporal Dislocation - Shows historical content out of sequence */}
+        {!activeModule && <TemporalDislocator />}
+        
         <div className="mb-8 p-6 bg-parchment-dark border border-graphite-light relative">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-earth-brown/5 to-transparent"></div>
           <h2 className="text-xl font-medium text-charcoal mb-3 relative">Resistance Through Practice</h2>
@@ -111,6 +128,9 @@ const Index = () => {
 
         {/* Daily Resistance - Featured prominently */}
         {!activeModule && <DailyResistance />}
+
+        {/* Cognitive Weight Assessment */}
+        {!activeModule && sessionData && <CognitiveWeight sessionData={sessionData} />}
 
         {/* Ego Furnace - Visual transformation */}
         {!activeModule && <EgoFurnace />}
@@ -129,11 +149,17 @@ const Index = () => {
             streak={getModuleStreak('csi')}
             lastActivity={getLastActivity('csi')}
           >
+            <MindlessTaskUnlocker 
+              targetModule="csi"
+              isLocked={isModuleLocked('csi')}
+              onUnlock={() => setActiveModule('csi')}
+            />
             <button
               onClick={() => setActiveModule('csi')}
-              className="raw-button w-full text-sm"
+              disabled={isModuleLocked('csi')}
+              className="raw-button w-full text-sm disabled:opacity-50"
             >
-              Rate Today's Independence
+              {isModuleLocked('csi') ? 'Locked - Complete Task' : 'Rate Today\'s Independence'}
             </button>
           </DashboardCard>
 
@@ -143,11 +169,17 @@ const Index = () => {
             streak={getModuleStreak('workout')}
             lastActivity={getLastActivity('workout')}
           >
+            <MindlessTaskUnlocker 
+              targetModule="workout"
+              isLocked={isModuleLocked('workout')}
+              onUnlock={() => setActiveModule('workout')}
+            />
             <button
               onClick={() => setActiveModule('workout')}
-              className="raw-button w-full text-sm"
+              disabled={isModuleLocked('workout')}
+              className="raw-button w-full text-sm disabled:opacity-50"
             >
-              Start Problem Breakdown
+              {isModuleLocked('workout') ? 'Locked - Complete Task' : 'Start Problem Breakdown'}
             </button>
           </DashboardCard>
 
