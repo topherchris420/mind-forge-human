@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import OnboardingModal from '../components/OnboardingModal';
@@ -9,6 +8,10 @@ import FirstPrinciplesWorkout from '../components/FirstPrinciplesWorkout';
 import TruthWithoutOracle from '../components/TruthWithoutOracle';
 import AntiAutomationTracker from '../components/AntiAutomationTracker';
 import WeeklyReflection from '../components/WeeklyReflection';
+import DailyResistance from '../components/DailyResistance';
+import CognitiveCandy from '../components/CognitiveCandy';
+import EgoFurnace from '../components/EgoFurnace';
+import MostHumanToday from '../components/MostHumanToday';
 
 const Index = () => {
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -72,12 +75,22 @@ const Index = () => {
           </button>
           <MemoryArchive />
         </main>
+        
+        {/* Ambient background for archival experience */}
+        <div className="fixed inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-earth-brown/5 to-transparent"></div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-parchment">
+    <div className="min-h-screen bg-parchment relative overflow-hidden">
+      {/* Subtle ambient background */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-parchment via-transparent to-parchment-dark opacity-30"></div>
+      </div>
+      
       <Header />
       
       <OnboardingModal 
@@ -85,15 +98,28 @@ const Index = () => {
         onComplete={handleOnboardingComplete} 
       />
       
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        <div className="mb-8 p-6 bg-parchment-dark border border-graphite-light">
-          <h2 className="text-xl font-medium text-charcoal mb-3">Resistance Through Practice</h2>
-          <p className="text-graphite leading-relaxed">
+      <main className="max-w-4xl mx-auto px-4 py-8 relative">
+        <div className="mb-8 p-6 bg-parchment-dark border border-graphite-light relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-earth-brown/5 to-transparent"></div>
+          <h2 className="text-xl font-medium text-charcoal mb-3 relative">Resistance Through Practice</h2>
+          <p className="text-graphite leading-relaxed relative">
             OffSwitch is a tool for cognitive sovereignty. Each exercise here is designed to strengthen 
             your capacity for independent thought, manual effort, and first-principles reasoning. 
             Progress is measured not in efficiency, but in authentic human capability.
           </p>
         </div>
+
+        {/* Daily Resistance - Featured prominently */}
+        {!activeModule && <DailyResistance />}
+
+        {/* Ego Furnace - Visual transformation */}
+        {!activeModule && <EgoFurnace />}
+
+        {/* Most Human Today - Community element */}
+        {!activeModule && <MostHumanToday />}
+
+        {/* Cognitive Candy - Mystery modules */}
+        {!activeModule && <CognitiveCandy />}
 
         {/* Dashboard Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -157,10 +183,11 @@ const Index = () => {
         <div className="mb-8">
           <button
             onClick={() => setActiveModule('memory-archive')}
-            className="w-full p-4 bg-parchment-dark border border-graphite-light hover:border-graphite slow-transition text-left"
+            className="w-full p-4 bg-parchment-dark border border-graphite-light hover:border-graphite slow-transition text-left relative overflow-hidden"
           >
-            <div className="text-lg font-medium text-charcoal mb-2">Memory Archive</div>
-            <div className="text-sm text-graphite">Review and reflect on past entries</div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-earth-brown/10 to-transparent"></div>
+            <div className="text-lg font-medium text-charcoal mb-2 relative">Memory Archive</div>
+            <div className="text-sm text-graphite relative">Review and reflect on past entries</div>
           </button>
         </div>
 
@@ -215,7 +242,7 @@ const Index = () => {
 
         {!activeModule && <WeeklyReflection />}
         
-        <footer className="mt-12 pt-8 border-t border-graphite-light text-center">
+        <footer className="mt-12 pt-8 border-t border-graphite-light text-center relative">
           <p className="text-graphite text-sm">
             Built for humans who refuse to outsource their thinking.
           </p>
