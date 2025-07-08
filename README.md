@@ -1,4 +1,3 @@
-
 # OffSwitch: A Cognitive Sovereignty Simulator
 
 *"Built for humans who refuse to outsource their thinking."*
