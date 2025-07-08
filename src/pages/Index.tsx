@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import OnboardingModal from '../components/OnboardingModal';
@@ -7,21 +6,38 @@ import MentalStatic from '../components/MentalStatic';
 import BackgroundEffects from '../components/BackgroundEffects';
 import Dashboard from '../components/Dashboard';
 import ModuleView from '../components/ModuleView';
+import ThresholdRitual from '../components/ThresholdRitual';
+import SovereigntyScore from '../components/SovereigntyScore';
+import SymbolicEchoes from '../components/SymbolicEchoes';
+import TimeGatedExperiences from '../components/TimeGatedExperiences';
+import ReverseNotifications from '../components/ReverseNotifications';
 
 const Index = () => {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [activeModule, setActiveModule] = useState<string | null>(null);
   const [sessionData, setSessionData] = useState<string>('');
+  const [showThreshold, setShowThreshold] = useState(true);
 
   useEffect(() => {
     const hasSeenOnboarding = localStorage.getItem('offswitch-onboarding-complete');
     if (!hasSeenOnboarding) {
       setShowOnboarding(true);
     }
+    
+    // Check if threshold was completed today
+    const completed = localStorage.getItem('threshold-completed-today');
+    const today = new Date().toDateString();
+    if (completed === today) {
+      setShowThreshold(false);
+    }
   }, []);
 
   const handleOnboardingComplete = () => {
     setShowOnboarding(false);
+  };
+
+  const handleThresholdComplete = () => {
+    setShowThreshold(false);
   };
 
   const getModuleStreak = (moduleKey: string) => {
@@ -58,6 +74,11 @@ const Index = () => {
     return 'Never';
   };
 
+  // Threshold Ritual - must be completed before accessing the app
+  if (showThreshold) {
+    return <ThresholdRitual onComplete={handleThresholdComplete} />;
+  }
+
   if (activeModule === 'memory-archive') {
     return (
       <div className="min-h-screen bg-parchment">
@@ -84,6 +105,11 @@ const Index = () => {
     <div className="min-h-screen bg-parchment relative overflow-hidden">
       <BackgroundEffects />
       
+      {/* New Components */}
+      <SymbolicEchoes />
+      <ReverseNotifications />
+      <SovereigntyScore />
+      
       <Header />
       
       <OnboardingModal 
@@ -95,6 +121,9 @@ const Index = () => {
       <MentalStatic />
       
       <main className="max-w-4xl mx-auto px-4 py-8 relative">
+        {/* Time-Gated Experiences */}
+        <TimeGatedExperiences />
+        
         {/* Active Module Display */}
         {activeModule && activeModule !== 'memory-archive' ? (
           <ModuleView activeModule={activeModule} setActiveModule={setActiveModule} />

@@ -11,6 +11,7 @@ import WeeklyReflection from './WeeklyReflection';
 import CognitiveArchaeology from './CognitiveArchaeology';
 import ResistanceJournal from './ResistanceJournal';
 import DigitalDetoxTracker from './DigitalDetoxTracker';
+import InnerVocabulary from './InnerVocabulary';
 
 interface DashboardProps {
   sessionData: string;
@@ -37,6 +38,9 @@ const Dashboard = ({ sessionData, getModuleStreak, getLastActivity, setActiveMod
 
       {/* Daily Resistance - Featured prominently */}
       <DailyResistance />
+
+      {/* Inner Vocabulary - Personal symbolic lexicon */}
+      <InnerVocabulary />
 
       {/* New Cognitive Archaeology Feature */}
       <CognitiveArchaeology />
